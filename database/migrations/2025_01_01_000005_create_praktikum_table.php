@@ -1,0 +1,29 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('praktikum', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('stage_id')->constrained('stages')->onDelete('cascade');
+            $table->string('judul');
+            $table->longText('instruksi');
+            $table->text('kode_awal')->nullable();
+            $table->text('expected_output');
+            $table->text('hint_1')->nullable();
+            $table->text('hint_2')->nullable();
+            $table->text('hint_3')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('praktikum');
+    }
+};
