@@ -1,58 +1,350 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# JavaPath - Adaptive Learning System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Platform pembelajaran Java yang adaptif dengan sistem placement test, stage progression, dan personalisasi konten berdasarkan kemampuan siswa.
 
-## About Laravel
+## 🎯 Fitur Utama
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### 1. **Placement Test**
+- Test awal untuk menentukan level kemampuan siswa
+- Soal dengan berbagai tingkat kesulitan (mudah, sedang, sulit)
+- Otomatis merekomendasikan stage mulai berdasarkan hasil test
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 2. **Stage Learning (Pembelajaran Bertahap)**
+- Pembelajaran Java dibagi menjadi stage-stage
+- Setiap stage memiliki:
+  - **Materi Pembelajaran** - Konten teori dengan contoh kode
+  - **Kuis** - Test pemahaman per stage
+  - **Praktikum** - Latihan coding dengan hints bertahap
+  
+### 3. **Adaptive System**
+- Sistem XP (Experience Points) dan Level
+- Rekomendasi materi berdasarkan kelemahan siswa
+- Tracking progress per topik
+- Badge/achievement system
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 4. **Tipe Soal Beragam**
+- **Pilihan Ganda** - Multiple choice questions
+- **Urutan Kode** - Drag & drop code snippets
+- **Tulis Kode** - Write code/output manually
 
-## Learning Laravel
+### 5. **Admin Panel (Filament)**
+- Kelola konten pembelajaran
+- Monitoring progress siswa
+- Manajemen grup ujian
+- Analisis performa per topik
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 🛠️ Tech Stack
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Framework**: Laravel 13
+- **Admin Panel**: Filament 4
+- **Frontend**: Blade, Alpine.js, Tailwind CSS
+- **Database**: SQLite (Development) / PostgreSQL (Production)
+- **Authentication**: Laravel Breeze
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+## 📋 Persyaratan Sistem
 
-## Agentic Development
+- PHP 8.3 atau lebih tinggi
+- Composer
+- Node.js & NPM
+- Git
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## 🚀 Instalasi
 
+### 1. Clone Repository
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone <repository-url>
+cd "java adaptive learning"
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### 2. Install Dependencies
+```bash
+composer install
+npm install
+```
 
-## Contributing
+### 3. Setup Environment
+```bash
+copy .env.example .env
+php artisan key:generate
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 4. Setup Database
 
-## Code of Conduct
+**Untuk SQLite (Recommended untuk development):**
+```bash
+# Buat file database
+type nul > database\database.sqlite
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# Pastikan .env menggunakan SQLite
+# DB_CONNECTION=sqlite
+```
 
-## Security Vulnerabilities
+**Untuk PostgreSQL:**
+Edit `.env` dan sesuaikan:
+```env
+DB_CONNECTION=pgsql
+DB_HOST=your-host
+DB_PORT=5432
+DB_DATABASE=your-database
+DB_USERNAME=your-username
+DB_PASSWORD=your-password
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 5. Jalankan Migrasi
+```bash
+php artisan migrate:fresh
+```
 
-## License
+### 6. Buat Admin User
+```bash
+php artisan tinker
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Lalu ketik di console tinker:
+```php
+\App\Models\User::create([
+    'name' => 'Admin',
+    'username' => 'admin',
+    'email' => 'admin@example.com',
+    'password' => bcrypt('password'),
+    'role' => 'superadmin'
+]);
+```
+
+Keluar dengan `Ctrl+C`
+
+### 7. Build Assets
+```bash
+npm run build
+```
+
+### 8. Jalankan Aplikasi
+
+**Opsi A - Development Mode (Recommended):**
+```bash
+composer dev
+```
+Ini akan otomatis menjalankan:
+- Laravel server (port 8000)
+- Queue worker
+- Log viewer (Pail)
+- Vite dev server
+
+**Opsi B - Manual:**
+
+Terminal 1:
+```bash
+php artisan serve
+```
+
+Terminal 2:
+```bash
+npm run dev
+```
+
+## 🌐 Akses Aplikasi
+
+- **Frontend (Siswa)**: http://localhost:8000
+- **Admin Panel**: http://localhost:8000/admin
+  - Email: `admin@example.com`
+  - Password: `password`
+
+## 📚 Struktur Database
+
+### Tabel Utama
+
+#### **users**
+- Data pengguna (siswa & admin)
+- Field adaptive: `xp`, `level`, `placement_done`
+- Role: `superadmin` atau `siswa`
+
+#### **stages**
+- Stage pembelajaran (1, 2, 3, dst)
+- Urutan pembelajaran bertahap
+
+#### **exam_groups**
+- Grup ujian berdasarkan rentang stage
+- Konfigurasi jumlah soal dan min. kelulusan
+
+#### **materials**
+- Konten materi per stage
+- Mendukung file PDF
+
+#### **questions**
+- Bank soal
+- Tipe: `placement`, `kuis`, `ujian`
+- Tipe soal: `pilihan_ganda`, `urutan_kode`, `tulis_kode`
+
+#### **praktikum**
+- Latihan coding interaktif
+- Hints bertahap (mudah → detail)
+- Expected output untuk validasi
+
+#### **student_progress**
+- Tracking kemajuan siswa per stage
+
+#### **exam_results**
+- Hasil ujian/kuis siswa
+
+#### **placement_results**
+- Hasil placement test
+- Rekomendasi stage awal
+
+#### **recommendations**
+- Rekomendasi materi adaptif berdasarkan kelemahan
+
+#### **badges**
+- Achievement/badge yang didapat siswa
+
+## 📖 Panduan Penggunaan Admin
+
+### 1. Setup Konten Pembelajaran
+
+#### a. Buat Stage
+1. Buka menu **Stage / Tahap**
+2. Klik **New Stage**
+3. Isi:
+   - Nama: "Pengenalan Java"
+   - Urutan: 1
+   - Deskripsi: Penjelasan singkat stage
+
+#### b. Buat Materi
+1. Buka menu **Materi**
+2. Klik **New Materi**
+3. Pilih stage
+4. Isi konten materi (WYSIWYG editor)
+5. Upload file PDF (opsional)
+
+#### c. Buat Soal
+1. Buka menu **Soal**
+2. Klik **New Soal**
+3. Pilih:
+   - **Jenis Soal**: Placement/Kuis/Ujian
+   - **Tipe Soal**: Pilihan Ganda/Urutan Kode/Tulis Kode
+   - **Stage**: Untuk kuis
+   - **Grup Ujian**: Untuk ujian
+   - **Topik**: e.g., "variabel", "loop", "array"
+   - **Tingkat Kesulitan**: Mudah/Sedang/Sulit
+
+**Contoh Soal Placement (Pilihan Ganda):**
+```
+Pertanyaan: Apa output dari System.out.println(5 + 3 * 2);
+Opsi A: 16
+Opsi B: 11 (✓ Benar)
+Opsi C: 13
+Opsi D: 10
+Topik: operator-aritmatika
+Kesulitan: Mudah
+```
+
+#### d. Buat Praktikum
+1. Buka menu **Praktikum**
+2. Klik **New Praktikum**
+3. Isi:
+   - **Stage**: Pilih stage
+   - **Judul**: "Membuat Program Hello World"
+   - **Instruksi**: Penjelasan tugas
+   - **Kode Awal**: Starter code
+   - **Expected Output**: Output yang diharapkan
+   - **Hints**: 3 level hints (mudah → detail)
+
+#### e. Buat Grup Ujian
+1. Buka menu **Grup Ujian**
+2. Klik **New Grup Ujian**
+3. Isi:
+   - **Nama Grup**: "Ujian Dasar Java"
+   - **Stage Dari**: Stage 1
+   - **Stage Sampai**: Stage 3
+   - **Total Soal**: 20
+   - **Min. Lulus**: 70
+
+### 2. Monitoring Siswa
+
+- **Dashboard**: Overview statistik
+- **Pengguna**: Lihat data siswa, progress, XP, level
+- Filter dan search untuk analisis
+
+## 🎓 Flow Pembelajaran Siswa
+
+1. **Register/Login**
+2. **Placement Test** (jika belum pernah)
+   - Mengerjakan soal placement
+   - Sistem menentukan stage awal
+3. **Belajar di Stage**
+   - Baca materi
+   - Kerjakan kuis
+   - Selesaikan praktikum
+4. **Progress ke Stage Berikutnya**
+5. **Ujian** (per grup stage)
+6. **Dapatkan Badge & Level Up**
+
+## 🔧 Troubleshooting
+
+### Error: Migration Failed
+```bash
+# Hapus database dan mulai fresh
+del database\database.sqlite
+type nul > database\database.sqlite
+php artisan migrate:fresh
+```
+
+### Error: Filament Cache
+```bash
+php artisan filament:cache-clear
+```
+
+### Error: Permission Denied (Composer/Artisan)
+Pastikan menjalankan terminal sebagai Administrator atau cek permission di workspace root.
+
+### Assets Tidak Muncul
+```bash
+npm run build
+php artisan config:clear
+php artisan view:clear
+```
+
+## 📁 Struktur Project
+
+```
+├── app/
+│   ├── Filament/Resources/    # Admin panel resources
+│   ├── Http/Controllers/      # Controllers
+│   └── Models/                # Eloquent models
+├── database/
+│   ├── migrations/            # Database migrations
+│   └── seeders/               # Database seeders
+├── resources/
+│   ├── views/                 # Blade templates
+│   └── js/                    # JavaScript files
+├── public/                    # Public assets
+├── routes/
+│   ├── web.php               # Web routes
+│   └── auth.php              # Auth routes
+└── storage/                   # File storage
+```
+
+## 🤝 Kontribusi
+
+1. Fork repository
+2. Buat branch feature (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push ke branch (`git push origin feature/AmazingFeature`)
+5. Buat Pull Request
+
+## 📝 Lisensi
+
+[MIT License](LICENSE)
+
+## 👨‍💻 Developer
+
+Dibuat dengan ❤️ untuk pembelajaran Java yang lebih adaptif dan personal.
+
+---
+
+## 📞 Support
+
+Jika ada pertanyaan atau issue, silakan buat issue di repository atau hubungi developer.
+
+---
+
+**Happy Learning! 🚀**
